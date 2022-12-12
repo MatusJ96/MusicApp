@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MusicApp.MainPage"
+             xmlns:viewmodels="clr-namespace:MusicApp.ViewModels"
+             x:Name="ThisPage">
+    
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+        <Grid RowDefinitions="100, Auto, *" ColumnDefinitions=".75*, 0.25*" Padding="10" RowSpacing="10" ColumnSpacing="10">
+
+        <Image Grid.ColumnSpan="2" Source="icon.png" HorizontalOptions="Fill"/>
+
+        <Entry Placeholder="Enter Title" Text="{Binding Text}" Grid.Row="1"/>
+
+        <Button Text="Add" Command="{Binding AddCommand}" Grid.Row="1" Grid.Column="1" BackgroundColor="DarkOrange"/>
+
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Text="Delete" 
+                                       Command="{Binding BindingContext.DeleteCommand, Source={x:Reference ThisPage}}"
+                                       CommandParameter="{Binding .}"
+                                       BackgroundColor="Red"/>
+                        </SwipeView.RightItems>
+                        <SwipeView.LeftItems>
+                            <SwipeItem Text="Save" 
+                                       Command="{Binding BindingContext.SaveCommand, Source={x:Reference ThisPage}}"
+                                       CommandParameter="{Binding .}"
+                                       BackgroundColor="LightGreen"/>
+                        </SwipeView.LeftItems>
+                        <Grid Padding="5">
+                            <Frame>
+                                <Label Text="{Binding .}" FontSize="24"/>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MusicApp;assembly=MusicApp"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             x:Class="MusicApp.AppTabbedPage">
+
+    <NavigationPage  Title="Home" IconImageSource="home.png">
+        <x:Arguments>
+            <local:MainPage Title="Home"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Two" IconImageSource="playlist_music.png">
+        <x:Arguments>
+            <local:SavedPage Title="Saved List"/>
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>
