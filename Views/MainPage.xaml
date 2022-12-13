@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MusicApp.Views.MainPage"
+             xmlns:viewmodels="clr-namespace:MusicApp.ViewModels"
+             Title="MainPage">
+    
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="100, Auto, *" ColumnDefinitions=".75*, 0.25*" Padding="10" RowSpacing="10" ColumnSpacing="10">
+
+        <Image Grid.ColumnSpan="2" Source="icon.png" HorizontalOptions="Fill"/>
+
+        <Entry Placeholder="Enter Title" Text="{Binding Name}" Grid.Row="1"/>
+
+        <Button Text="Add" Command="{Binding AddCommand}" Grid.Row="1" Grid.Column="1" BackgroundColor="DarkOrange"/>
+
+    </Grid>
+</ContentPage>
