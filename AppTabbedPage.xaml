@@ -16,4 +16,9 @@
             <local:SavedPage Title="Saved List"/>
         </x:Arguments>
     </NavigationPage>
+    <NavigationPage Title="Api" IconImageSource="api.png">
+        <x:Arguments>
+            <local:ApiPage Title="Api Page"/>
+        </x:Arguments>
+    </NavigationPage>
 </TabbedPage>

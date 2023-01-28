@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MusicApp.Views.ApiPage"
+             xmlns:viewmodels="clr-namespace:MusicApp.ViewModels"
+             Title="ApiPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackLayout>
+            <Label HorizontalTextAlignment="Center" FontSize="20"/>
+            <Entry x:Name="txtSearch" Placeholder="Enter Artist" Completed="OnEntryCompleted" />
+        </StackLayout>
+        <ListView x:Name="ListArtist" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    
+</ContentPage>
