@@ -11,15 +11,9 @@ namespace MusicApp.ViewModels;
 
 public partial class ApiPageViewModel : ObservableObject
 {
-    [ObservableProperty]
-    string name;
+    public Token Token { get; set; }
 
-    [ObservableProperty]
-    ObservableCollection<SpotifyArtist> items = new ObservableCollection<SpotifyArtist>();
-
-    public static Token Token { get; set; }
-
-    public static async Task GetTokenAsync()
+    public async Task GetTokenAsync()
     {
         #region SecretVault
         string clientID = "63b876f3f9de4102bef1ebf00b328df0";
@@ -44,7 +38,7 @@ public partial class ApiPageViewModel : ObservableObject
         Token = JsonConvert.DeserializeObject<Token>(msg);
     }
 
-    public static SpotifyResult SearchArtistOrSong(string searchWord)
+    public SpotifyResult SearchArtistOrSong(string searchWord)
     {
         var client = new RestClient("https://api.spotify.com/v1/search");
         client.AddDefaultHeader("Authorization", $"Bearer {Token.Access_token}");
@@ -63,40 +57,42 @@ public partial class ApiPageViewModel : ObservableObject
 
     }
 
-    //[RelayCommand]
-    //void Search()
-    //{
-    //    var search = new SpotifyArtist();
-    //    search.Name = name;
-    //    if (string.IsNullOrWhiteSpace(search.Name))
-    //    {
-    //        Items.Clear();
-    //        return;
-    //    }
+    [ObservableProperty]
+    string artist;
 
-    //    var result = SearchArtistOrSong(search.ToString());
+    [ObservableProperty]
+    ObservableCollection<SpotifyArtist> listArtist = new ObservableCollection<SpotifyArtist>();
 
-    //    if (result == null)
-    //    {
-    //        return;
-    //    }
+    [RelayCommand]
+    void Search()
+    {
 
-    //    //var listArtist = new List<SpotifyArtist>();
+        if (artist == string.Empty)
+        {
+            //ListArtist.ItemsSource = null;
+            ListArtist.Clear();
+            return;
+        }
 
-    //    foreach (var item in result.artists.items)
-    //    {
-    //        Items.Add(new SpotifyArtist()
-    //        {
-    //            ID = item.id,
-    //            Image = item.images.Any() ? item.images[0].url : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
-    //            Name = item.name,
-    //            Popularity = $"{item.popularity}% popularidad",
-    //            Followers = $"{item.followers.total.ToString("N")} seguidores"
-    //        });
-    //    }
+        var result = SearchArtistOrSong(artist);
 
-    //    //ListArtist.ItemsSource = listArtist;
-    //}
+        if (result == null)
+        {
+            return;
+        }
 
+        //var listArtist = new List<SpotifyArtist>();
 
+        foreach (var item in result.artists.items)
+        {
+            ListArtist.Add(new SpotifyArtist()
+            {
+                ID = item.id,
+                Image = item.images.Any() ? item.images[0].url : "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png",
+                Name = item.name,
+                Popularity = $"{item.popularity}% popularity",
+                Followers = $"{item.followers.total.ToString("N")} followers"
+            });
+        }
+    }
 }

@@ -8,19 +8,50 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <StackLayout>
             <Label HorizontalTextAlignment="Center" FontSize="20"/>
-            <Entry x:Name="txtSearch" Placeholder="Enter Artist" Completed="OnEntryCompleted" />
+            <Entry Placeholder="Enter Artist" Text="{Binding Artist}"/>
+            <Button Text="Search" Command="{Binding SearchCommand}" Grid.Row="1" Grid.Column="1" BackgroundColor="DarkOrange"/>
         </StackLayout>
-        <ListView x:Name="ListArtist" Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding ListArtist}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}"/>
+                    <ViewCell>
+                        <Grid Padding="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                                Source="{Binding Image}"
+                                Aspect="AspectFill"
+                                HeightRequest="50"
+                                WidthRequest="50" />
+                            <Label Grid.Column="1"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Popularity}"
+                                FontAttributes="Italic"/>
+                            <Label Grid.Row="1"
+                                Grid.Column="2"
+                                Text="{Binding Followers}"
+                                FontAttributes="Italic"/>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </Grid>
-    
 </ContentPage>
